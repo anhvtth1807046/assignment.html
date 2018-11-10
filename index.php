@@ -1,1 +1,1 @@
-<?php header('Location: /zingmp3.html')?>
+<?php header('Location: page/zingmp3.html')?>
