@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Montserrat&subset=vietnamese");
+        * {
+            font-family: 'Montserrat', sans-serif;
+            box-sizing: border-box; }
+
+        .container {
+            margin: auto;
+            padding: 30px 90px;
+            background-color: rgba(255, 192, 203, 0.29); }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Karla', sans-serif; }
+        .card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 10px; }
+
+        .audio {
+            width: 100%;
+            margin: 0;
+            padding: 0 20px;
+            height: 100px;
+            background: #fff;
+            line-height: 100px;
+            vertical-align: middle;
+            transition: .5s; }
+        .audio:hover {
+            background: #f1f1f1; }
+        .audio .box-img {
+            width: 90px;
+            height: 90px;
+            border-radius: 5px;
+            overflow: hidden;
+            vertical-align: middle;
+            line-height: 90px;
+            float: left;
+            margin-top: 5px; }
+        .audio .box-img img {
+            width: 100%;
+            height: 100%;
+            position: center;
+            transition: .5s; }
+        .audio .box-title {
+            float: left;
+            width: 30%;
+            padding-left: 40px;
+            transition: .5s; }
+        .audio .box-title .title.title-playing {
+            animation: textRun 20s linear infinite;
+            position: relative;
+            left: 10px; }
+        .audio .box-icon {
+            float: right;
+            padding-top: 20px; }
+        .audio .box-icon ul {
+            display: flex; }
+        .audio .box-icon ul li {
+            list-style: none; }
+        .audio .box-icon ul li a {
+            display: block;
+            text-align: center;
+            height: 30px;
+            width: 30px;
+            margin-right: 30px;
+            color: #fff;
+            line-height: 30px;
+            border-radius: 30px;
+            background: #797979;
+            font-size: 13px;
+            transition: .5s; }
+        .audio .box-icon ul li a:hover {
+            background: #ff7c86; }
+        .audio.song-playing {
+            background: #9FC2EA; }
+
+        img.img-playing {
+            border-radius: 60px;
+            animation: animate 10s linear infinite; }
+
+        @keyframes animate {
+            0% {
+                transform: rotate(0deg); }
+            25% {
+                transform: rotate(90deg); }
+            50% {
+                transform: rotate(180deg); }
+            75% {
+                transform: rotate(270deg); }
+            100% {
+                transform: rotate(360deg); } }
+        @keyframes textRun {
+            0% {
+                left: 15px; }
+            25% {
+                left: 300px; }
+            50% {
+                left: 15px; }
+            75% {
+                left: 300px; }
+            100% {
+                left: 15px; } }
+
+        a {
+            text-decoration: none; }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="card">
+            <div id="list-mp3">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none">
+    <audio src="" id="audio-play" type="audio/mpeg" loop></audio>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (event) {
+        loadMp3();
+    });
+
+
+    function loadMp3() {
+        var MP3_API = "https://2-dot-backup-server-002.appspot.com/_api/v2/songs";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", MP3_API, true);
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                // Parse kết quả trả về thành kiểu json.
+                var responseJson = JSON.parse(this.responseText);
+                var htmlContent = "";
+                for(var i = 0; i< responseJson.length;i++){
+                    htmlContent += '<div class="audio">'+
+                        '<div class="box-img">'+
+                        '<img src="' + responseJson[i].thumbnail + '" alt="IMG-MUSIC">'+
+                        '</div>'+
+                        '<div class="box-title">'+
+                        '<div class="title">' + responseJson[i].name +'</div>'+
+                        '</div>'+
+                        '<div class="box-icon">'+
+                        '<ul>'+
+                        '<li><a id="pause' + responseJson[i].id + '" href="javascript:void(0)" onclick="pauseSong(this.id)" class="btn-pause hidden"><i class="fa fa-pause" aria-hidden="true"></i></a></li>' +
+                        "<li><a href='javascript:void(0)' id=' "+ responseJson[i].id + "' onclick='playSong(\""+ responseJson[i].link +"\" , this.id)'>" +
+                        '<i class="fa fa-play" aria-hidden="true"></i></a>' +
+                        '</li>'+
+                        '<li><a href="#"><i class="fa fa-plus" aria-hidden="true"></i></a></li>'+
+                        '<li><a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a></li>'+
+                        '</ul>'+
+                        '</div>'+
+                        '</div>'+
+                        '<div style="clear: both"></div>'
+                }
+                document.getElementById('list-mp3').innerHTML = htmlContent;
+            } else if (this.readyState === 4) {
+                console.log("Fails");
+            }
+        };
+        xhr.setRequestHeader('Authorization','Basic ' + localStorage.getItem('token'));
+        xhr.send();
+    };
+
+    function pauseSong(id) {
+        var btnPause = document.getElementById(id);
+        var btnPlay = btnPause.parentElement.nextElementSibling.firstChild;
+        btnPlay.classList.remove('hidden');
+        btnPause.classList.add('hidden');
+        var mp3 = document.getElementById('audio-play');
+        mp3.pause();
+        var imgDefault = document.querySelector('.img-playing');
+        if (imgDefault != null) {
+            imgDefault.classList.remove('img-playing');
+        }
+        //Reset class div nếu tồn tại class="song-playing"
+        var songDefault = document.querySelector('.song-playing');
+        if (songDefault != null) {
+            songDefault.classList.remove('song-playing');
+        }
+
+        var titleDefault = document.querySelector('.title-playing');
+        if (titleDefault != null) {
+            titleDefault.classList.remove('title-playing');
+        }
+    }
+
+    function playSong(link, id) {
+        //Reset class img nếu tồn tại class="img-playing"
+        let imgDefault = document.querySelector('.img-playing');
+        if (imgDefault != null){
+            imgDefault.classList.remove('img-playing');
+        }
+        //Reset class div nếu tồn tại class="song-playing"
+        let songDefault = document.querySelector('.song-playing');
+        if (songDefault != null) {
+            songDefault.classList.remove('song-playing');
+        }
+
+        let titleDefault = document.querySelector('.title-playing');
+        if (titleDefault != null) {
+            titleDefault.classList.remove('title-playing');
+        }
+
+        var btnPlayId = document.getElementById(id);
+        var btnPause = btnPlayId.parentElement.parentElement.parentElement.firstChild.firstChild.firstChild;
+
+        var img = btnPlayId.parentElement.parentElement.parentElement.parentElement.firstChild.firstChild;
+        var title = btnPlayId.parentElement.parentElement.parentElement.parentElement.firstChild.nextElementSibling.firstChild;
+
+        var divAudio = btnPlayId.parentElement.parentElement.parentElement.parentElement;
+        img.classList.add('img-playing');
+        divAudio.classList.add('song-playing');
+        title.classList.add('title-playing');
+        var mp3 = document.getElementById('audio-play');
+        btnPause.classList.remove('hidden');
+        btnPlayId.classList.add('hidden');
+        mp3.src = link;
+        mp3.play();
+    }
+
+</script>
+</body>
+</html>

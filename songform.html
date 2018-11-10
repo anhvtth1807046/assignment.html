@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ZingMp3.5</title>
+    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*.header {*/
+            /*background-color: #9FC2EA;*/
+        /*}*/
+
+        /*.header .box-menu {*/
+            /*text-decoration: none;*/
+            /*margin-left: 30px;*/
+            /*height: 50px;*/
+            /*padding-top: 30px;*/
+
+        /*}*/
+
+        /*.form-group {*/
+            /*padding: 10px;*/
+            /*border-radius: 5px;*/
+            /*display: block;*/
+
+        /*}*/
+        body{
+            background-color: rgba(115, 115, 115, 0.89);
+
+        }
+
+        input[type=text], select, textarea, input[type=url], input[type=password] {
+            width: 78%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+
+        input[type=button], input[type=reset] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=button] :hover {
+            background-color: #45a049;
+        }
+
+        input[type=reset]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+
+        }
+
+        select {
+            width: 50%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical
+        }
+
+        label {
+            display: block;
+        }
+        .song-menu {
+            margin-top: 45px;
+            float: right;
+            margin-right: 70px;
+            padding-bottom: 25px;
+        }
+
+        .hearder {
+            background-color: rgba(124, 51, 255, 0.29);
+            position: fixed;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .logo {
+            margin-left: 50px;
+            color: rgba(124, 51, 255, 0.29);
+            margin-top: 24px;
+            border-radius: 5px;
+        }
+
+        .hearder a {
+            font-family: Freckle Face ;
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            margin-right: 25px;
+        }
+        .ngan{
+            height: 160px;
+            width: 100%;
+        }
+        h1{
+            text-align: center;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        form{
+            padding: 15px;
+            background-color: #f2f2f2;
+            width: 78%;
+            margin: auto;
+
+        }
+
+        .danger-text {
+            color: red;
+        }
+
+        .success-text {
+            color: green;
+        }
+
+        .hidden-text {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="box-menu">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <a href="zingmp3.html">Trang chủ</a>
+    </div>
+</div>
+<header>
+        <div class="container">
+            <div class="nav-bar">
+                <div class="logo">
+                    <a href="the-latest-song.html">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSV1-8i_zMcLpWjXgNtWYY7ijBLIQkF2v1AZrADZz_IYlI1b2Xpg"  height="150" width="250"/>
+                    </a>
+                </div>
+                <div class="search-text">
+                    <input  type="text" placeholder="Nhập nội dung cần tìm">
+                    <button class="dropbtn">My zingmp3</button>
+                </div>
+                <div class="nav-item">
+                <span>
+                    <div class="dropdown">
+                        <div class="dropdown-content" style="margin-right: 20px">
+                            <a href="mysong.html">Bài hát của tôi</a>
+                            <a href="songform.html">Tạo mới bài hát</a>
+                        </div>
+                    </div>
+                </span>
+                    <span style="margin-right: 20px">
+                    <a href="login.html"><b>Đăng nhập</b></a>
+                </span>
+
+                    <span>
+                    <a href="register.html"><b>Đăng kí</b></a>
+                </span>
+                </div>
+            </div>
+        </div>
+</header>
+<div id="content">
+    <div class="container">
+        <div class="row">
+            <h1>Create Song</h1>
+            <form action="" name="song-form">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Thumbnail</label>
+                    <input type="text" name="thumbnail" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" name="description" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Singer</label>
+                    <input type="text" name="singer" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    <input type="text" name="author" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Link</label>
+                    <input type="text" name="link" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="button" name="btn-submit" value="Submit">
+                    <input type="button" name="btn-reset" value="Reset">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="songform.js"></script>
+</body>
+</html>
