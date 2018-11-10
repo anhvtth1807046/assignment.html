@@ -253,7 +253,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Node.js.song-detail (2).js">
-    <configuration name="zingmp3.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/assignment/zingmp3.html">
+    <configuration name="zingmp3.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/assignment/page/zingmp3.html">
       <method v="2" />
     </configuration>
     <configuration name="song-detail (2).js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="song-detail (2).js" working-dir="$USER_HOME$/Downloads">
